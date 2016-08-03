@@ -300,3 +300,11 @@
     </div>
     </div>
 </div>
+
+<%= form_for [@game, @coordinate], :url => game_shots_path(@game, @coordinate) do |f| %>
+    <%= f.label :row %>
+    <%= f.text_field :row %>
+    <%= f.label :column %>
+    <%= f.text_field :column %>
+    <%= f.submit "Fire!" %>
+<% end %>
