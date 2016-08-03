@@ -1,0 +1,10 @@
+<h1> Welcome To Liam-Ship! </h1>
+<br>
+<h2>What is your name, Padawan?</h2>
+<div class='signup-login-form'>
+  <%= form_for @user do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit %>
+  <%end%>
+</div>
