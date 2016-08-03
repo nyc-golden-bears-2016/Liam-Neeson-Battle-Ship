@@ -1,11 +1,13 @@
 class GamesController < ApplicationController
 
   def index
-    @games = Game.where(player_2_id: null)
+    @games = Game.where(player_2_id: nil)
   end
+
 
   def show
     @game = Game.find(params[:id])
+    @coordinate = Coordinate.new
     #If current_user.id != session[:player_1] || session[:player_2]
       #redirect_to "index"
   end
