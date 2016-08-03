@@ -1,0 +1,2 @@
+class GameShip < ApplicationRecord
+end
