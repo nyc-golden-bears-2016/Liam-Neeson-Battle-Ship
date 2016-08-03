@@ -1,7 +1,2 @@
 <h1> Create a Game, Padawan </h1>
 <%= button_to 'create' %>
-
-<h1> Or find your opponent, and sink them </h1>
-<% @games.each do |game|%>
-  <a href="games/<%=game.id%>/show">Game with <%=game.player_1.name%></a>
-<%end%>
