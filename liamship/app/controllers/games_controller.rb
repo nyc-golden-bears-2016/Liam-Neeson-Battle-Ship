@@ -15,12 +15,12 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(player_1_id: current_user.id)
+    @game = Game.new(player_1_id: session[:user_id])
     if @game.save
       session[:game_id] = @game.id
       redirect_to(@game)
     else
-      render '#new'
+      render 'new'
     end
   end
 

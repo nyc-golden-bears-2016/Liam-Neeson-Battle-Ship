@@ -1,2 +1,4 @@
 <h1> Create a Game, Padawan </h1>
-<%= button_to 'create' %>
+<%= form_for(@game) do |f| %>
+  <%= f.submit "New Game" %>
+<% end %>
