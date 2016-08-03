@@ -3,4 +3,5 @@ class Coordinate < ApplicationRecord
   has_many :shots
 
   validates :row, :column, presence: true
+  validates_uniqueness_of :row, scope: :column
 end
