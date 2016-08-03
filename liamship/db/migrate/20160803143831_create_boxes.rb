@@ -5,7 +5,7 @@ class CreateBoxes < ActiveRecord::Migration[5.0]
       t.string :row, null: false
       t.integer :columm, null: false
       t.boolean :shot?, null: false, default: false
-      t.timestamps, null: false
+      t.timestamps null: false
     end
   end
 end
