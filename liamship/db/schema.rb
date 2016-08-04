@@ -15,13 +15,6 @@ ActiveRecord::Schema.define(version: 20160803183824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "coordinate_game_ships", force: :cascade do |t|
-    t.integer  "coordinate_id", null: false
-    t.integer  "game_ship_id",  null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "coordinates", force: :cascade do |t|
     t.string   "row",        null: false
     t.string   "column",     null: false
@@ -29,12 +22,20 @@ ActiveRecord::Schema.define(version: 20160803183824) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coordinates_game_ships", force: :cascade do |t|
+    t.integer  "coordinate_id", null: false
+    t.integer  "game_ship_id",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "game_ships", force: :cascade do |t|
-    t.integer  "game_id",    null: false
-    t.integer  "player_id",  null: false
-    t.integer  "ship_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "game_id",       null: false
+    t.integer  "player_id",     null: false
+    t.integer  "ship_id",       null: false
+    t.integer  "current_lives", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "games", force: :cascade do |t|
