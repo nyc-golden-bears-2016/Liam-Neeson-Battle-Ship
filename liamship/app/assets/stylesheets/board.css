@@ -1,0 +1,30 @@
+html{
+  background-color: black;
+}
+
+.container{
+  position: relative;
+}
+
+.enemy-board{
+  background-color: white;
+
+}
+
+.home-board{
+  background-color: white;
+}
+
+table, td {
+   border: 1px solid black;
+   font-size: 32px;
+}
+
+table{
+  width: 100vw;
+}
+
+.nees{
+  background-image: url('http://cdn.movieweb.com/img.news/NE8T7skxguIwbe_1_1.jpg');
+  height: 100vh;
+}
