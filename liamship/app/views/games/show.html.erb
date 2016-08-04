@@ -1,6 +1,7 @@
-<div class="container">
-    <div class="enemy-board">
-        <table>
+<div class="gamepage">
+    <h1> Enemy Board </h1>
+     <table>
+        <div class="enemy-board">
             <tr>
                 <td> </td>
                 <td>1</td>
@@ -167,11 +168,9 @@
             </tr>
         </table>
     </div><br>
-    <div class='nees'>
-
-    </div><br>
-    <div class="home-board">
-        <table>
+    <h1> Friendly Board </h1>
+    <table>
+        <div class="home-board">
             <tr>
                 <td> </td>
                 <td>1</td>
@@ -338,13 +337,13 @@
             </tr>
         </table>
     </div>
+    <br>
+    <div class="shotform">
+        <%= form_for [@game, @coordinate], :url => game_shots_path(@game, @coordinate) do |f| %>
+            <%= f.text_field :row, placeholder: "Input Row" %><br><br>
+            <%= f.text_field :column, placeholder: "Input Column"  %><br><br>
+            <%= f.submit "Fire!" %>
+        <% end %>
     </div>
-</div>
+</div><br>
 
-<%= form_for [@game, @coordinate], :url => game_shots_path(@game, @coordinate) do |f| %>
-    <%= f.label :row %>
-    <%= f.text_field :row %>
-    <%= f.label :column %>
-    <%= f.text_field :column %>
-    <%= f.submit "Fire!" %>
-<% end %>
