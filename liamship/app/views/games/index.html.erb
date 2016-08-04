@@ -4,6 +4,6 @@
 
 <% if @games %>
 <% @games.each do |game|%>
-  <a href="games/<%=game.id%>/show">Game with <%=game.player_1.name%></a>
+  <li><a href="games/<%=game.id%>">Join Game with <%=game.player_1.name%></a></li><br>
 <%end%>
 <%end%>
