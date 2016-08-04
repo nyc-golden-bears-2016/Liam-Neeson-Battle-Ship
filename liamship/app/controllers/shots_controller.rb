@@ -4,11 +4,11 @@ class ShotsController < ApplicationController
   end
 
   def create
-    byebug
     @game = Game.find(params[:game_id])
-    @coordinate = Coordinate.create(row: params[:coordinate][:row], column: params[:coordinate][:column])
+    @coordinate = Coordinate.find_by(row: params[:coordinate][:row], column: params[:coordinate][:column])
     @shot = @game.shots.new(coordinate_id: @coordinate.id, player_id: session[:user_id])
     #logic for shot hit or miss
+    @shot.hit?
     if @shot.save
       redirect_to(@game)
     else

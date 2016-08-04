@@ -8,8 +8,16 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @coordinate = Coordinate.new
-    #If current_user.id != session[:player_1] || session[:player_2]
-      #redirect_to "index"
+    if @game.player_2_id == nil && current_user.id != @game.player_1_id
+      @game.player_2_id = current_user.id
+      @game.save
+    end
+
+    # if whose_turn?(@game.id) == session[:player_id]
+
+    # If current_user.id != @game.player_1_id || current_user.id != @game.player_2_id
+    #   redirect_to "index"
+    # end
   end
 
   def new
@@ -19,11 +27,9 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(player_1_id: session[:user_id])
     if @game.save
-      session[:game_id] = @game.id
-      current_game = session[:game_id]
-
+      session[:player_id] = current_user.id
       # byebug
-      gameship = GameShip.new(player_id: session[:user_id], game_id: current_game, ship_id: 1)
+      gameship = GameShip.new(player_id: session[:user_id], game_id: @game.id, ship_id: 1)
       byebug
       4.times { |i| gameship.coordinates << Coordinate.find_by(id: i+1)}
       gameship.save
