@@ -9,7 +9,23 @@
   </head>
 
   <body>
+  <nav class="main-nav">
+    <ul id="navbar-ul">
+      <li id="navbar-list"><%= link_to 'Games', games_path, class: 'games-link' %></li>
+      <% if !logged_in? %>
+        <li id="navbar-list-right"><%= link_to 'User Register', new_user_path, class: 'navbar-link' %></li>
+        <li id="navbar-list-right"><%= link_to 'User Login', new_session_path, class: 'navbar-link' %></li>
+      <% else %>
+        <li id="navbar-list-right"><%= link_to 'Logout', session_path(current_user),
+              method: :delete,
+              data: { confirm: 'Are you sure you want to logout?' }, class: 'navbar-link' %></li>
+        <li id="navbar-list-right"><%= link_to "#{current_user.name}", user_path(current_user), class: 'navbar-link' %></li>
+      <% end %>
+    </ul>
+  </nav>
+  <br>
     <div class="container">
+
       <%= yield %>
     </div>
   </body>

@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:new, :create, :show]
+  resources :sessions
+
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 end

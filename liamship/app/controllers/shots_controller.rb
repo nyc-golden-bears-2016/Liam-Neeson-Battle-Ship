@@ -1,4 +1,4 @@
-class ShotsController < ActionController::Base
+class ShotsController < ApplicationController 
   def new
     @shot = Shot.new
   end
