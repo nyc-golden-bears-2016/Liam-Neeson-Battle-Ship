@@ -1,10 +1,11 @@
 $( document ).ready(function() {
-  $('.shotform').on('submit', function(event){
+  $('.shotform').on('submit', 'form', function(event){
     $.ajax({
       url: $(this).attr('action'),
       method: "POST",
-      data: $(this).serialize()
+      data: $(event.target).serialize()
     }).done(function(response){
+      debugger;
       var shot = JSON.parse(response);
       var x = shot["row"];
       var y = shot['column'];
