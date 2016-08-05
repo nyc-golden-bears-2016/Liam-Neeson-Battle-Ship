@@ -1,3 +1,5 @@
+require 'json'
+
 class GamesController < ApplicationController
 
   def index
@@ -12,21 +14,18 @@ class GamesController < ApplicationController
       @game.player_2_id = current_user.id
       @game.save
     end
-
-    # gameship = GameShip.new(player_id: session[:player_id], game_id:  @game.id, ship_id: 1)
-
-    # 4.times { |i| gameship.coordinates << Coordinate.find_by(id: i+1)}
-    # gameship.save
-
     if @game.winner?
       #redirect to end game page
     end
-
-    # whose_turn?(@game.id)
-
-    # If current_user.id != @game.player_1_id || current_user.id != @game.player_2_id
+    # if current_user.id != @game.player_1_id || current_user.id != @game.player_2_id
     #   redirect_to "index"
     # end
+  end
+
+  def turn
+    @game = Game.find(params[:id])
+    @player = whose_turn?(@game.id)
+    render :json => @player
   end
 
   def new
@@ -37,9 +36,6 @@ class GamesController < ApplicationController
     @game = Game.new(player_1_id: session[:player_id])
     if @game.save
       session[:player_id] = current_user.id
-      # gameship = GameShip.new(player_id: session[:player_id], game_id: @game.id, ship_id: 1)
-      # 4.times { |i| gameship.coordinates << Coordinate.find_by(id: i+1)}
-      # gameship.save
       redirect_to(@game)
     else
       render 'new'

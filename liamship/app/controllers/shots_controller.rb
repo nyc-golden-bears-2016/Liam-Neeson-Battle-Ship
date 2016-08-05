@@ -4,12 +4,14 @@ class ShotsController < ApplicationController
   end
 
   def create
+    #current player method
     @game = Game.find(params[:game_id])
     if session[:player_id] == whose_turn?(@game.id)
       @coordinate = Coordinate.find_by(row: params[:coordinate][:row], column: params[:coordinate][:column])
       @shot = @game.shots.new(coordinate_id: @coordinate.id, player_id: session[:player_id])
 
       @shot.hit?(session[:player_id])
+      @data = @shot.to_json.merge(@shot.coordinate.to_json)
     else
       @shot = Shot.new #temporary line
       #redirect somewhere
