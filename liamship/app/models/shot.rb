@@ -5,6 +5,8 @@ class Shot < ApplicationRecord
 
   validates :game_id, :coordinate_id, :hit, :player_id, presence: true
 
+  validates :coordinate_id, uniqueness: { scope: [:player_id, :game_id] }
+
   def enemy_player(game_id, player_id)
     game = Game.find_by(id: game_id)
     enemy_id = game.player_1_id

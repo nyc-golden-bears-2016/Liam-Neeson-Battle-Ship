@@ -1,17 +1,17 @@
-// $(document).ready(function(){
-//   setInterval(ajaxTurn, 1000) ;
+$(document).ready(function(){
+  setInterval(ajaxTurn, 1000) ;
 
-//   function ajaxTurn() {
-//     $.ajax({
-//       url: "/games/" + $('#game-id').val() + '/turn'
-//     })
-//     .done(function(response) {
-//       if(response === true){
-//         $('.fire').show();
-//       }
-//       else if(response === false){
-//         $(".fire").hide();
-//       }
-//     })
-//     }
-// })
+  function ajaxTurn() {
+    $.ajax({
+      url: "/games/" + $('#game_id').val() + '/turn'
+    })
+    .done(function(response) {
+      if(response === true){
+        $('.shotform').show();
+      }
+      else if(response === false){
+        $(".shotform").hide();
+      }
+    })
+    }
+})

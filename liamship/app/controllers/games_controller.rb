@@ -24,7 +24,8 @@ class GamesController < ApplicationController
 
   def turn
     @game = Game.find(params[:id])
-    @player = whose_turn?(@game.id)
+    whose_turn?(@game.id) == session[:player_id] ? @player = true : @player = false
+    # binding.pry
     render :json => @player
   end
 
@@ -42,29 +43,20 @@ class GamesController < ApplicationController
     end
   end
 
-  def edit
-    @game = Game.find(params[:id])
-  end
-
-  def update
-    @game = Game.find(params[:id])
-    if @game.update()
-      redirect_to(@game)
-    else
-      render "edit"
-    end
-  end
-
   def whose_turn?(game_id)
-    p1_shots = Shot.where(game_id: game_id, player_id: session[:player_id])
-    p2_shots = Shot.where(game_id: game_id, player_id: enemy_player(game_id, Game.find_by(id: game_id).player_1_id))
+    game = Game.find_by(id: game_id)
+    p1_shots = Shot.where(game_id: game_id, player_id: game.player_1_id)
+    p2_shots = Shot.where(game_id: game_id, player_id: game.player_2_id)
+    # binding.pry
+    p p1_shots.count
+    p p2_shots.count
 
     if p1_shots.count == 0 && p2_shots.count == 0
-      return session[:player_id]
+      return game.player_1_id
     elsif p1_shots.count > p2_shots.count
-      return p2_shots.first.player_id
-    else
-      return p1_shots.first.player_id
+      return game.player_2_id
+    elsif p1_shots.count == p2_shots.count
+      return game.player_1_id
     end
   end
 
