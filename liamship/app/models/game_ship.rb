@@ -6,11 +6,11 @@ class GameShip < ApplicationRecord
   validates :game_id, :player_id, :ship_id, presence: true
   validates :current_lives, presence: true
 
+  before_validation :set_lives
   before_save :set_lives
 
-  private
   def set_lives
-    self.current_lives = self.ship.lives
+    self.current_lives = self.ship.lives if self.current_lives.nil?
   end
 
 end
