@@ -25,10 +25,11 @@ class Shot < ApplicationRecord
           self.hit = true
           ship.current_lives = ship.current_lives - 1
           ship.save
-          break
+          return true
         end
       end
     end
+    return false
   end
 
 end
