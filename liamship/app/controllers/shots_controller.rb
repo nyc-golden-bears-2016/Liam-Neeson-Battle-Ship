@@ -11,7 +11,6 @@ class ShotsController < ApplicationController
       @shot = @game.shots.new(coordinate_id: @coordinate.id, player_id: session[:player_id])
 
       @shot.hit?(session[:player_id])
-      @data = @shot.to_json.merge(@shot.coordinate.to_json)
     else
       @shot = Shot.new #temporary line
       #redirect somewhere
