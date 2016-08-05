@@ -6,10 +6,9 @@ $( document ).ready(function() {
       data: $(event.target).serialize()
     }).done(function(response){
       debugger;
-      var shot = JSON.parse(response);
-      var x = shot["row"];
-      var y = shot['column'];
-      if (shot["hit"] === true){
+      var x = response.coordinate.row;
+      var y = response.coordinate.column;
+      if (response.hit === true){
         $("." + x + " ." + y).addClass('hit');
       } else {
         $("." + x + " ." + y).addClass('miss');

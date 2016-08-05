@@ -3,7 +3,7 @@ class Shot < ApplicationRecord
   belongs_to :player, class_name: "User"
   belongs_to :game
 
-  validates :game_id, :coordinate_id, :hit, :player_id, presence: true
+  validates :game_id, :coordinate_id, :player_id, presence: true
 
   validates :coordinate_id, uniqueness: { scope: [:player_id, :game_id] }
 
