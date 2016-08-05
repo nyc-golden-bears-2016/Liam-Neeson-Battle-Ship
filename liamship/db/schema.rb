@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160803183824) do
   create_table "shots", force: :cascade do |t|
     t.integer  "game_id",       null: false
     t.integer  "coordinate_id", null: false
-    t.boolean  "hit",           null: false
+    t.boolean  "hit"
     t.integer  "player_id",     null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false

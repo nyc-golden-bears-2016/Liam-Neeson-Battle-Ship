@@ -15,11 +15,14 @@ class GamesController < ApplicationController
       @game.save
     end
     if @game.winner?
-      #redirect to end game page
+      render 'winner'
     end
     # if current_user.id != @game.player_1_id || current_user.id != @game.player_2_id
     #   redirect_to "index"
     # end
+    @current_player = session[:player_id]
+    @enemy_player = enemy_player(@game.id, session[:player_id])
+    @all_shots = Shot.where(game_id: @game.id)
   end
 
   def turn
