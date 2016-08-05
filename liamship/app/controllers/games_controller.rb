@@ -8,8 +8,25 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @coordinate = Coordinate.new
-    #If current_user.id != session[:player_1] || session[:player_2]
-      #redirect_to "index"
+    if @game.player_2_id == nil && current_user.id != @game.player_1_id
+      @game.player_2_id = current_user.id
+      @game.save
+    end
+
+    # gameship = GameShip.new(player_id: session[:player_id], game_id:  @game.id, ship_id: 1)
+
+    # 4.times { |i| gameship.coordinates << Coordinate.find_by(id: i+1)}
+    # gameship.save
+
+    if @game.winner?
+      #redirect to end game page
+    end
+
+    # whose_turn?(@game.id)
+
+    # If current_user.id != @game.player_1_id || current_user.id != @game.player_2_id
+    #   redirect_to "index"
+    # end
   end
 
   def new
@@ -17,9 +34,12 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(player_1_id: session[:user_id])
+    @game = Game.new(player_1_id: session[:player_id])
     if @game.save
-      session[:game_id] = @game.id
+      session[:player_id] = current_user.id
+      # gameship = GameShip.new(player_id: session[:player_id], game_id: @game.id, ship_id: 1)
+      # 4.times { |i| gameship.coordinates << Coordinate.find_by(id: i+1)}
+      # gameship.save
       redirect_to(@game)
     else
       render 'new'
@@ -36,6 +56,28 @@ class GamesController < ApplicationController
       redirect_to(@game)
     else
       render "edit"
+    end
+  end
+
+  def whose_turn?(game_id)
+    p1_shots = Shot.where(game_id: game_id, player_id: session[:player_id])
+    p2_shots = Shot.where(game_id: game_id, player_id: enemy_player(game_id, Game.find_by(id: game_id).player_1_id))
+
+    if p1_shots.count == 0 && p2_shots.count == 0
+      return session[:player_id]
+    elsif p1_shots.count > p2_shots.count
+      return p2_shots.first.player_id
+    else
+      return p1_shots.first.player_id
+    end
+  end
+
+  def enemy_player(game_id, player_id)
+    game = Game.find_by(id: game_id)
+    if player_id == game.player_1_id
+      return enemy_id = game.player_2_id
+    else
+      return enemy_id = game.player_1_id
     end
   end
 
