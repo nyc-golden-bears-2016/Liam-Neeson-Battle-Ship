@@ -1,7 +1,9 @@
-<h1>Find your Opponent, and sink them</h1>
+<br><br><br><br><br><br>
+<div class="list"><h1>Find your Opponent, and sink them</h1>
 
 <% if @games %>
 <% @games.each do |game|%>
   <li><a href="games/<%=game.id%>">Join Game with <%=game.player_1.name%></a></li><br>
 <%end%>
 <%end%>
+</div>
