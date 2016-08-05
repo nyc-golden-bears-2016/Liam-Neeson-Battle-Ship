@@ -43,19 +43,6 @@ class GamesController < ApplicationController
     end
   end
 
-  def edit
-    @game = Game.find(params[:id])
-  end
-
-  def update
-    @game = Game.find(params[:id])
-    if @game.update()
-      redirect_to(@game)
-    else
-      render "edit"
-    end
-  end
-
   def whose_turn?(game_id)
     game = Game.find_by(id: game_id)
     p1_shots = Shot.where(game_id: game_id, player_id: game.player_1_id)

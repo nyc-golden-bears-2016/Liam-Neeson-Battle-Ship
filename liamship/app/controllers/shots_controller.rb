@@ -15,6 +15,7 @@ class ShotsController < ApplicationController
       @shot = Shot.new #temporary line
       #redirect somewhere
     end
+    # binding.pry
     if @shot.save
       redirect_to(@game)
     else
