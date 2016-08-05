@@ -1,3 +1,6 @@
+
+<% @all_shots %>
+
 <div class="gamepage">
     <h1> Enemy Board </h1>
      <table>
@@ -15,138 +18,28 @@
                 <td>9</td>
                 <td>10</td>
             </tr>
-             <tr class="A">
-                    <td>A</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
+
+            <% ("A".."J").to_a.each do |row| %>
+            <tr class=<%= row %>>
+                <td><%= row %></td>
+                <% (1..10).to_a.each do |column| %>
+                    <% coordinate_id = Coordinate.find_by(row: row, column: column).id %>
+                    <% if @all_shots.find_by(player_id: @current_player, coordinate_id: coordinate_id)%>
+                        <% if @all_shots.find_by(player_id: @current_player, coordinate_id: coordinate_id).hit == true %>
+                            <td class="<%= column %> hit"></td>
+                        <% elsif @all_shots.find_by(player_id: @current_player, coordinate_id: coordinate_id).hit == false%>
+                            <td class="<%= column %> miss"></td>
+                        <% end %>
+                    <% else %>
+                        <td class=<%= column %>></td>
+                    <% end %>
+                <% end %>
             </tr>
-            <tr class="B">
-                    <td>B</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-                <tr class="C">
-                    <td>C</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="D">
-                    <td>D</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="E">
-                    <td>E</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="F">
-                    <td>F</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="G">
-                    <td>G</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="H">
-                    <td>H</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="I">
-                    <td>I</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="J">
-                    <td>J</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
+            <% end %>
         </table>
     </div><br>
+
+
     <h1> Friendly Board </h1>
     <table>
         <div class="home-board">
@@ -163,136 +56,24 @@
                 <td>9</td>
                 <td>10</td>
             </tr>
-             <tr class="A">
-                    <td>A</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
+
+            <% ("A".."J").to_a.each do |row| %>
+            <tr class=<%= row %>>
+                <td><%= row %></td>
+                <% (1..10).to_a.each do |column| %>
+                    <% coordinate_id = Coordinate.find_by(row: row, column: column).id %>
+                    <% if @all_shots.find_by(player_id: @enemy_player, coordinate_id: coordinate_id)%>
+                        <% if @all_shots.find_by(player_id: @enemy_player, coordinate_id: coordinate_id).hit == true %>
+                            <td class="<%= column %> hit"></td>
+                        <% elsif @all_shots.find_by(player_id: @enemy_player, coordinate_id: coordinate_id).hit == false%>
+                            <td class="<%= column %> miss"></td>
+                        <% end %>
+                    <% else %>
+                        <td class=<%= column %>></td>
+                    <% end %>
+                <% end %>
             </tr>
-            <tr class="B">
-                    <td>B</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-                <tr class="C">
-                    <td>C</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="D">
-                    <td>D</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="E">
-                    <td>E</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="F">
-                    <td>F</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="G">
-                    <td>G</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="H">
-                    <td>H</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="I">
-                    <td>I</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
-            <tr class="J">
-                    <td>J</td>
-                    <td class="1"></td>
-                    <td class="2"></td>
-                    <td class="3"></td>
-                    <td class="4"></td>
-                    <td class="5"></td>
-                    <td class="6"></td>
-                    <td class="7"></td>
-                    <td class="8"></td>
-                    <td class="9"></td>
-                    <td class="10"></td>
-            </tr>
+            <% end %>
         </table>
     </div>
     <br>

@@ -4,23 +4,41 @@ class ShotsController < ApplicationController
   end
 
   def create
-    #current player method
-    if request.xhr?
-      @game = Game.find(params[:game_id])
-      if session[:player_id] == whose_turn?(@game.id)
-        @coordinate = Coordinate.find_by(row: params[:coordinate][:row], column: params[:coordinate][:column])
-        @shot = @game.shots.new(coordinate_id: @coordinate.id, player_id: session[:player_id])
-        @shot.hit?(session[:player_id])
-      else
-        @shot = Shot.new #temporary line
-        #redirect somewhere
-      end
-      if @shot.save
-        render json: @shot, include: :coordinate
-      else
-        # render "games/show"
-        redirect_to(@game)
-      end
+    #current player
+    @game = Game.find(params[:game_id])
+     if session[:player_id] == whose_turn?(@game.id)
+       @coordinate = Coordinate.find_by(row: params[:coordinate][:row], column: params[:coordinate][:column])
+       @shot = @game.shots.new(coordinate_id: @coordinate.id, player_id: session[:player_id])
+
+       @shot.hit?(session[:player_id])
+     else
+       @shot = Shot.new #temporary line
+       #redirect somewhere
+     end
+     # binding.pry
+     if @shot.save
+       redirect_to(@game)
+     else
+       # binding.pry
+       # render "games/show"
+       redirect_to(@game)
+
+    # if request.xhr?
+    #   @game = Game.find(params[:game_id])
+    #   if session[:player_id] == whose_turn?(@game.id)
+    #     @coordinate = Coordinate.find_by(row: params[:coordinate][:row], column: params[:coordinate][:column])
+    #     @shot = @game.shots.new(coordinate_id: @coordinate.id, player_id: session[:player_id])
+    #     @shot.hit?(session[:player_id])
+    #   else
+    #     @shot = Shot.new #temporary line
+    #     #redirect somewhere
+    #   end
+    #   if @shot.save
+    #     render json: @shot, include: :coordinate
+    #   else
+    #     # render "games/show"
+    #     redirect_to(@game)
+    #   end
     end
   end
 
