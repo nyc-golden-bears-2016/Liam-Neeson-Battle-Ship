@@ -61,11 +61,14 @@ class GamesController < ApplicationController
     p1_shots = Shot.where(game_id: game_id, player_id: game.player_1_id)
     p2_shots = Shot.where(game_id: game_id, player_id: game.player_2_id)
     # binding.pry
+    p p1_shots.count
+    p p2_shots.count
+
     if p1_shots.count == 0 && p2_shots.count == 0
       return game.player_1_id
     elsif p1_shots.count > p2_shots.count
       return game.player_2_id
-    else
+    elsif p1_shots.count == p2_shots.count
       return game.player_1_id
     end
   end
